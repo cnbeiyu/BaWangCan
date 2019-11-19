@@ -38,7 +38,7 @@ headers = {
 ids = []
 activityTitles = []
 data = {"cityId":cityId,"type":0,"mode":"","page":1}
-for page in range(1,12):
+for page in range(1,15):
     data["page"] = str(page)
     response = requests.post('http://m.dianping.com/activity/static/pc/ajaxList', headers=headers, data=str(json.dumps(data)))
     # print(page)
