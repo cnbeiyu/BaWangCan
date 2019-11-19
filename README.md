@@ -1,5 +1,5 @@
 # BaWangCan
-大众点评一键报名所有霸王餐
+大众点评一键报名所有霸王餐 生成excel表格反馈
 ## 运行环境
 需要Python3.x的环境，没有的可以看[廖雪峰的Python安装教程](https://www.liaoxuefeng.com/wiki/1016959663602400/1016959856222624)。
 另外可能还需要几个三方库，可以直接用pip install安装。
