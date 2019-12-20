@@ -37,15 +37,19 @@ headers = {
 
 ids = []
 activityTitles = []
+types_food = [1, 2, 6, 99]
+types_all = [0]
 data = {"cityId":cityId,"type":0,"mode":"","page":1}
-for page in range(1,15):
-    data["page"] = str(page)
-    response = requests.post('http://m.dianping.com/activity/static/pc/ajaxList', headers=headers, data=str(json.dumps(data)))
-    # print(page)
-    for item in response.json()['data']['detail']:
-        activityTitles.append(item['activityTitle'])
-        ids.append(item['offlineActivityId'])
-        print(str(page) + ":" + item['activityTitle'])
+for t in types_food:
+  for page in range(1,15):
+      data["page"] = str(page)
+      data["type"] = str(t)
+      response = requests.post('http://m.dianping.com/activity/static/pc/ajaxList', headers=headers, data=str(json.dumps(data)))
+      # print(page)
+      for item in response.json()['data']['detail']:
+          activityTitles.append(item['activityTitle'])
+          ids.append(item['offlineActivityId'])
+          # print(str(page) + ":" + item['activityTitle'])
 
 print('搜索到'+str(len(ids))+'条霸王餐')
 cookies = {
@@ -77,7 +81,7 @@ data = {
   'babyBirths': '',
   'pregnant': '',
   'marryStatus': '0',
-  'comboId': '',
+  'comboId': '1',
   'branchId': '568675',
   'usePassCard': '0',
   'passCardNo': '',
@@ -112,7 +116,7 @@ for _id in tqdm(ids):
         worksheet.write(count,1,activityTitles[ids.index(_id)])
         worksheet.write(count,2,"已报名过")
         worksheet.write(count,3,"http://s.dianping.com/event/"+str(_id))
-    elif "报名成功" in msg["msg"]:
+    elif "报名成功" in msg["msg"]["html"]:
         success.append(activityTitles[ids.index(_id)])
         worksheet.write(count,0,count)
         worksheet.write(count,1,activityTitles[ids.index(_id)])
